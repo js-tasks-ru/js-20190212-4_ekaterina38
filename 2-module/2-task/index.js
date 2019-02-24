@@ -4,51 +4,43 @@
  * @param {*} value - значение, которе ищем
  * @returns {Object}
  */
-function find (obj, value) {
-    let onePath = '';
-    let path = [];
-    let numberKeys = 0;
+function find(obj, value) {
+    let paths = [];
 
-    for (let key in obj) {
-        if (obj[key] === value) {
-            onePath = key + '.';
-            onePath = onePath.slice(0, length - 1);
-            path.push(onePath);
-            numberKeys++;
+    Object.keys(obj).forEach(function (key) {
+        if(obj[key] === value) {
+            paths.push(key);
         }
+        if(typeof obj[key] === 'object') {
+            let result_paths = find(obj[key], value);
 
-        if (typeof obj[key] === 'object' && obj[key] !== null) {
-            //onePath = key + '.' + find (obj[key], value);
-            if (find (obj[key], value) !== null) {
-                onePath = key + '.' + find (obj[key], value);
-                path.push(onePath);
+            if(typeof  result_paths !== 'object') {
+                result_paths = [result_paths];  // единственный результат
+            } else if (result_paths === null) {
+                result_paths = [];  // ничего не было найдено
+            }
+
+            for(let i=0; i<result_paths.length; i++) {
+                paths.push(`${key}.${result_paths[i]}`);
             }
         }
-    }
+    });
 
-    if (path.length > 0) {
-        if (path.length === 1) {
-            path = path.join('');
-        }
-        return path;
+    if(paths.length === 0) {
+        return null;
+    } else if(paths.length === 1) {
+        return paths[0];
+    } else {
+        return paths;
     }
-    return null;
 }
 
-// let obj = {
-//     style: {
-//         border: {
-//             color: 'red',
-//             prop: {
-//                 color: 'red'
-//             },
-//
-//         }
-//     }
-// };
-//
-// console.log(find(obj, 'red'));
-
+let obj = {
+    style: {
+        test: 'red',
+        color: 'red',
+    }
+};
 
 
 

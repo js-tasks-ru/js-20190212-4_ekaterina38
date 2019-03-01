@@ -34,7 +34,6 @@ function find(obj, value) {
         return paths;
     }
 }
-
 let obj = {
     style: {
         test: 'red',

@@ -8,8 +8,6 @@
 Пример использования
 ```javascript
 
-
-
 function work(a, b) {
     return a + b;
 }
@@ -21,3 +19,4 @@ work(1, 2); // -> 3
 
 console.log(log[0][0] === 1, log[0][1] === 2);
 ```
+

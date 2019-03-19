@@ -8,6 +8,8 @@
 Пример использования
 ```javascript
 
+
+
 function work(a, b) {
     return a + b;
 }
